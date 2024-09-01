@@ -1,0 +1,102 @@
+1. Check Cluster Status
+oc status
+
+2. Get Cluster Information
+oc cluster-info
+
+3. Check Node Utilization
+oc adm top nodes
+
+21. Check Cluster Operators
+
+oc get co
+oc describe co <operator-name>
+Lists the cluster operators and provides their details and status.
+
+22. Get Cluster Version Information
+
+oc get clusterversion
+oc describe clusterversion
+Displays the current OpenShift cluster version and upgrade history.
+
+23. Check Cluster Health
+
+oc get clusteroperator
+oc describe clusteroperator <operator-name>
+Provides information about the health and status of cluster operators.
+
+24. Check OpenShift Routes
+
+oc get route
+oc describe route <route-name>
+Lists routes and provides detailed information.
+
+25. Check Build Configurations and Builds
+
+oc get buildconfig
+oc describe buildconfig <buildconfig-name>
+oc get builds
+oc describe build <build-name>
+Displays build configuration and build status.
+
+
+27. Get Projects
+oc get projects
+
+28. Switch Project
+oc project <project_name>
+
+29. Get Images
+oc get images
+
+30. Get ImageStreams
+oc get is
+
+31. Describe ImageStream
+oc describe is <imagestream_name>
+
+33. Get Running Pods
+oc get pods --field-selector=status.phase=Running
+
+34. Get Failed Pods
+oc get pods --field-selector=status.phase=Failed
+
+36. Debugging Pod Issues
+oc debug pod/<pod-name>
+Launches a debug container to troubleshoot issues with a pod.
+
+37. Execute Commands Inside a Container
+oc exec <pod-name> -c <container-name> -- <command>
+oc exec -it <pod-name> -- /bin/bash
+
+38. Check API server logs for errors:
+oc logs -n openshift-apiserver $(oc get pods -n openshift-apiserver -l apiserver=true -o jsonpath='{.items[0].metadata.name}')
+
+39. Evict all pods from a node (drain a node):
+oc adm drain <node_name> --force --ignore-daemonsets --delete-emptydir-data
+
+40. Analyze audit logs for security-related issues or actions:
+oc adm node-logs --role=master --path=audit
+
+41. View OpenShift internal component logs:
+oc logs -n openshift-kube-apiserver $(oc get pods -n openshift-kube-apiserver -o jsonpath='{.items[0].metadata.name}')
+oc logs -n openshift-controller-manager $(oc get pods -n openshift-controller-manager -o jsonpath='{.items[0].metadata.name}')
+
+42. Performance and Resource Usage
+
+Check top resource-consuming pods:
+oc adm top pods -A
+Check memory and CPU usage of nodes:
+oc adm top nodes
+Monitor API server metrics for performance bottlenecks:
+oc adm top apiserver
+
+43. Advanced Debugging
+Use debug command to create a debug pod for troubleshooting:
+oc debug node/<node_name>
+oc debug pod/<pod_name> -n <namespace>
+
+Check for security context constraints (SCCs) issues:
+oc get scc
+oc describe scc <scc_name>
+
